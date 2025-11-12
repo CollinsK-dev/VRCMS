@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>VRCMS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="top-bar">
+        <span id="user-info" class="welcome-message">Welcome to VRCMS</span>
+        <div class="top-bar-actions">
+            <button id="toggleReportsBtn" class="btn btn-info">
+                <i class="btn-icon fas fa-list"></i>View My Reports
+            </button>
+            <button id="logoutBtn" class="btn btn-danger">
+                <i class="btn-icon fas fa-sign-out-alt"></i>Logout
+            </button>
+        </div>
+    </div>
+    <div class="dashboard-container">
+        <div class="card">
+            <h1>Vulnerability Report Submission</h1>
+            <div id="error-message" class="alert alert-error" style="display: none;"></div>
+            <div id="success-message" class="alert alert-success" style="display: none;"></div>
+            <div class="section-description">Submit detailed information about the vulnerability you've identified.</div>
+            <form id="reportForm" class="report-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" name="title" required placeholder="Enter a descriptive title for the vulnerability">
+                    </div>
+                    <div class="form-group">
+                        <label for="severity">Severity Level</label>
+                        <select id="severity" name="severity" required>
+                            <option value="" disabled selected>Select severity</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                            <option value="critical">Critical</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="details">Detailed Description</label>
+                    <textarea id="details" name="details" rows="5" required placeholder="Provide a detailed description of the vulnerability..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Submit Report</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Modal for displaying reports -->
+        <div id="reportsModal" class="modal-overlay" style="display: none;">
+            <div class="modal-content">
+                <div class="reports-section">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <h2>My Submitted Reports</h2>
+                        <button id="hideReportsBtn" class="btn btn-secondary">Close</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="reportsTable">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Severity</th>
+                                    <th>Status</th>
+                                    <th>Compliance</th>
+                                    <th>Date Submitted</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Reports will be dynamically inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/reporter_dashboard.js"></script>
+</body>
+</html>

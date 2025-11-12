@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VRCMS</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-layout">
+    <div class="split-container">
+        <!-- Registration Information Section (requirements & tips) -->
+        <div class="info-section">
+            
+            <div class="info-content">
+                <h3>Join VRCMS</h3>
+                <p>Please provide all the details required to create an account. Your email will be used for verification.</p>
+                
+                
+                <p style="margin-top:1rem;">After registering you'll receive a verification code by email. Accounts remain inactive until verified.</p>
+                <small style="display:block; margin-top:1rem; color:rgba(255,255,255,0.85);">By registering you agree to the organization's terms and privacy policy.</small>
+            </div>
+        </div>
+
+        <!-- Registration Form Section -->
+        <div class="card auth-card">
+            <div class="auth-card-header">
+                <h1>Create account</h1>
+                <p>Join the VRCMS platform</p>
+            </div>
+            <div id="error-message"></div>
+
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                </div>
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <input type="text" id="department" name="department" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Register</button>
+            </form>
+            <p class="auth-footer">
+                Already have an account? <a href="login.html">Login</a>
+            </p>
+        </div>
+    </div>
+    <!-- Verification Modal -->
+    <div id="verifyModal" class="modal verify-modal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeVerifyModal">&times;</span>
+            <!-- Use site card styles for consistent look -->
+            <div class="card verify-card" style="max-width:680px; margin: 0 auto;">
+                <div class="card-header" style="margin-bottom: 12px;">
+                    <h2 style="margin:0;">Verify Your Account</h2>
+                    <p class="sub-header" style="margin-top:6px;">A verification code has been sent to <strong id="userEmail">your email</strong>.</p>
+                </div>
+
+                <div id="verifyMessage" class="alert" style="display: none;"></div>
+
+                <form id="verificationForm">
+                    <div class="form-group">
+                        <label for="verifyEmail">Email:</label>
+                        <input type="email" id="verifyEmail" required readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="verification_code">Verification Code:</label>
+                        <input type="text" id="verification_code" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Verify Account</button>
+                </form>
+
+                <p class="form-footer" style="margin-top:12px;">
+                    Didn't receive a code? <a href="#" id="resendCode">Resend Code</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/register.js"></script>
+    <script src="js/verify.js"></script>
+</body>
+</html>

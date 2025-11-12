@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VRCMS</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <a href="admin_dashboard.html" class="navbar-logo">VRCMS</a>
+        <div class="navbar-right">
+            <span id="user-info" class="welcome-message"></span>
+            <a href="admin_dashboard.html" class="btn btn-secondary">Back to Dashboard</a>
+            <button id="logoutBtn" class="btn btn-danger"><i class="btn-icon fas fa-sign-out-alt"></i>Logout</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h1>Current Assignments</h1>
+            <p class="sub-header">Overview of all reports currently assigned to developers and their status.</p>
+            <table id="assignmentsTable">
+                <thead>
+                    <tr>
+                        <th>Reporter Email</th>
+                        <th>Assigned To</th>
+                        <th>Status</th>
+                        <th>Assignment Date</th>
+                        <th>Reassignment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Assignments will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/view_assignments.js"></script>
+</body>
+</html>

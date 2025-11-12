@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>VRCMS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="admin-page">
+    <div class="top-bar">
+        <span id="user-info" class="welcome-message">Welcome to VRCMS</span>
+        <div class="top-bar-actions">
+            <button id="superadminPanelBtn" class="btn btn-warning" style="display:none;"><i class="btn-icon fas fa-user-shield"></i>Superadmin</button>
+            <button id="viewAssignmentsBtn" class="btn btn-info"><i class="btn-icon fas fa-tasks"></i>View Assignments</button>
+            <button id="viewFeedbacksBtn" class="btn btn-secondary"><i class="btn-icon fas fa-comments"></i>View Feedbacks</button>
+            <button id="logoutBtn" class="btn btn-danger"><i class="btn-icon fas fa-sign-out-alt"></i>Logout</button>
+        </div>
+    </div>
+    <div class="dashboard-container">
+        </div>
+
+        <div class="card">
+            <h1>Vulnerability Reports Management</h1>
+
+        <div class="card">
+            <h2>All Submitted Vulnerability Reports</h2>
+            <div id="filterSection" class="filter-section">
+                <h3>Filter Reports</h3>
+                <div class="filter-grid">
+                    <div class="filter-row">
+                        <div class="filter-date-range">
+                            <div class="form-group">
+                                <label for="filterDateFrom">From Date</label>
+                                <input type="date" id="filterDateFrom">
+                            </div>
+                            <div class="form-group">
+                                <label for="filterDateTo">To Date</label>
+                                <input type="date" id="filterDateTo">
+                            </div>
+                        </div>
+                        <div class="filter-actions">
+                            <button id="applyFilterBtn" class="btn btn-primary">Apply Filters</button>
+                        </div>
+                    </div>
+                    <div class="filter-row">
+                        <div class="filter-reporter">
+                            <div class="form-group">
+                                <label for="filterReporterBtn">Filter by Reporter</label>
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    <button id="filterReporterBtn" class="btn btn-info">Filter Reporter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table id="allReportsTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Reporter</th>
+                        <th>Severity</th>
+                        <th>Status & Assignee</th>
+                        <th>Timestamp</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Reports will be dynamically inserted here -->
+                </tbody> 
+            </table>
+        </div>
+    </div>
+    
+    <!-- View Assignments Modal -->
+    <div id="assignmentsModal" class="modal assignments-modal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeAssignmentsModal">&times;</span>
+            <h1>Current Assignments</h1>
+            <p class="sub-header">Overview of all reports currently assigned to respective personnel(s) and their status.</p>
+            <table id="assignmentsTable">
+                <thead>
+                    <tr>
+                        <th>Report Details</th>
+                        <th>Assigned To</th>
+                        <th>Status</th>
+                        <th>Assignment Date</th>
+                        <th>Reassignment History</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Assignments will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+        <!-- Reporter Filter Modal -->
+        <div id="reporterFilterModal" class="modal reporter-filter-modal">
+            <div class="modal-content">
+                <button class="modal-close" id="closeReporterFilterModal">&times;</button>
+                <h2>Filter by Reporter</h2>
+                <div class="form-group">
+                    <label for="filterReporterName">Reporter Name (optional)</label>
+                    <input id="filterReporterName" type="text" placeholder="Enter reporter name">
+                </div>
+                <div class="form-group">
+                    <label for="filterReporterEmail">Reporter Email (optional)</label>
+                    <input id="filterReporterEmail" type="email" placeholder="Enter reporter email">
+                </div>
+                <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px;">
+                    <button id="applyReporterFilterBtn" class="btn btn-primary">Apply Filter</button>
+                    <button id="cancelReporterFilterBtn" class="btn btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtered Results Modal -->
+        <div id="filteredResultsModal" class="modal filtered-results-modal">
+            <div class="modal-content">
+                <button class="modal-close" id="closeFilteredResultsModal">&times;</button>
+                <h2 id="filteredResultsHeader">Filtered Reports</h2>
+                <div style="max-height:60vh; overflow:auto; margin-top:12px;">
+                    <table id="filteredResultsTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Reporter</th>
+                                <th>Severity</th>
+                                <th>Status & Assignee</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Filtered rows inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px;">
+                    <button id="closeFilteredResultsBtn" class="btn btn-secondary">Close</button>
+                </div>
+            </div>
+        </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin_dashboard.js"></script>
+</body>
+</html>

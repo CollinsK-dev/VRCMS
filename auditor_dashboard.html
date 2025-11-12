@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>VRCMS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="auditor-page">
+    <div class="top-bar">
+        <span id="user-info" class="welcome-message">Welcome to VRCMS</span>
+        <div class="top-bar-actions">
+            <button id="openComplianceBtn" class="btn btn-outline">
+                <i class="btn-icon fas fa-clipboard-list"></i>Run Compliance Check
+            </button>
+            <button id="viewAuditsBtn" class="btn btn-secondary">
+                <i class="btn-icon fas fa-history"></i>View Audits
+            </button>
+            <button id="logoutBtn" class="btn btn-danger">
+                <i class="btn-icon fas fa-sign-out-alt"></i>Logout
+            </button>
+        </div>
+    </div>
+    <div class="dashboard-container">
+        <div class="card">
+            <!-- Header Section -->
+            <h1>Audit Management Dashboard</h1>
+            <div id="error-message" class="alert alert-error" style="display:none;"></div>
+            <div id="success-message" class="alert alert-success" style="display:none;"></div>
+            <div class="section-description" style="margin-bottom:2.5rem;">Monitor and manage audit records and vulnerability reports.</div>
+
+            <!-- COMPLIANCE CARD -->
+            <div class="card auditor-compliance-card">
+                    <div class="report-generator-section">
+                            <h2 style="margin:0 0 0.5rem 0;">Compliance Report</h2>
+                            <p class="report-info-text">Select date range to obtain compliance report in that time range.</p>
+                            <div class="date-range-container">
+                                <div class="date-inputs">
+                                    <div class="form-group">
+                                        <label for="reportStartDate">Start Date</label>
+                                        <input type="date" id="reportStartDate" class="date-input small">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reportEndDate">End Date</label>
+                                        <input type="date" id="reportEndDate" class="date-input small">
+                                    </div>
+                                    <button id="generateReportBtn" class="btn btn-info date-btn">
+                                        <div class="btn-icon"><i class="fas fa-file-pdf"></i></div>
+                                        <span>Generate Report</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+
+            <!-- SEVERITY TREND CHART -->
+            <div class="card auditor-stats-card">
+                <h2 style="margin-top:0;">Reports Overview</h2>
+                <div class="section-description" style="margin-bottom:1rem;">Quick summary of reports and severity breakdown as submitted over time(last 30 days).</div>
+
+                <div class="chart-container" style="position:relative;">
+                    <canvas id="auditorSeverityTrend" aria-label="Reports severity trend" role="img"></canvas>
+                </div>
+
+                <div style="margin-top:0.75rem; display:flex; gap:8px; align-items:center;">
+                    <small class="muted">Chart range (use the date pickers above to change):</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/auditor_dashboard.js"></script>
+</body>
+</html>

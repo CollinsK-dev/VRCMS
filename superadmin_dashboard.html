@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>VRCMS</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/modal.css">
+</head>
+<body class="admin-page">
+    <div class="top-bar">
+        <div class="top-bar-actions">
+                <div style="display:flex; gap:8px; align-items:center;">
+                <button id="backToAdminBtn" class="btn btn-secondary">Back to Admin</button>
+                <button id="logoutBtn" class="btn btn-danger"><i class="btn-icon fas fa-sign-out-alt"></i>Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card dashboard-container">
+        <h1>Superadmin Console</h1>
+        <div class="card-inner">
+            <!-- Registration Section -->
+            <section id="saRegistrationSection" class="section">
+                <h2>Register new user</h2>
+                <form id="saRegisterForm" class="form-vertical">
+                    <div class="form-group">
+                        <label for="saRole">Select role to register</label>
+                        <select id="saRole">
+                            <option value="">-- Select role --</option>
+                            <option value="admin">Admin</option>
+                            <option value="auditor">Auditor</option>
+                            <option value="superadmin">Superadmin</option>
+                            <option value="reporter">Reporter</option>
+                        </select>
+                    </div>
+
+                    <!-- Hidden until a role is selected -->
+                    <div id="saUserFields" style="display:none; margin-top:12px;">
+                        <div class="form-group">
+                            <label for="saUsername">Username</label>
+                            <input id="saUsername" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="saEmail">Email</label>
+                            <input id="saEmail" type="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="saPassword">Password</label>
+                            <input id="saPassword" type="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="saConfirmPassword">Confirm Password</label>
+                            <input id="saConfirmPassword" type="password" required>
+                        </div>
+                        <div class="form-group" id="saDepartmentGroup" style="display:none;">
+                            <label for="saDepartment">Department</label>
+                            <input id="saDepartment" type="text" placeholder="Enter department (optional)">
+                        </div>
+                        <div class="form-actions">
+                            <button id="saRegisterBtn" class="btn btn-primary" type="submit">Register</button>
+                        </div>
+                    </div>
+                </form>
+                <div id="saRegisterMessage" class="form-message"></div>
+            </section>
+
+            <!-- Users Section -->
+            <section id="saUsersSection" class="section">
+                <h2>Users</h2>
+
+                <!-- Role cards -->
+                <div id="roleCards" class="stats-cards" aria-hidden="false">
+                    <!-- cards populated by JS -->
+                </div>
+
+                <!-- Filter (kept for convenience; hidden by default) -->
+                <div class="filter-row" style="display:none;">
+                    <label for="saFilterRole">Filter by role</label>
+                    <select id="saFilterRole">
+                        <option value="">All roles</option>
+                        <option value="superadmin">Superadmins</option>
+                        <option value="admin">Admins</option>
+                        <option value="auditor">Auditors</option>
+                        <option value="reporter">Reporters</option>
+                    </select>
+                    <button id="saRefreshBtn" class="btn btn-info">Refresh</button>
+                </div>
+                <!-- Users are displayed in a modal when a role card is clicked. The inline table has been removed for a cleaner dashboard. -->
+            </section>
+
+            <!-- Reports Section -->
+            <section id="saReportsSection" class="section">
+                <h2>Reports</h2>
+                <!-- All Reports button (keeps the same id so JS can attach) -->
+                <div style="margin:8px 0 12px 0;">
+                    <button id="reportsCardBtn" class="btn btn-outline">
+                        <i class="btn-icon fas fa-clipboard-list"></i>
+                        All Reports <span class="stat-number" id="reportsCount" style="margin-left:8px;">0</span>
+                    </button>
+                </div>
+
+                <div class="section-description" style="margin-bottom:1rem;">Quick summary of reports and severity breakdown.</div>
+
+                <!-- Overall totals -->
+                <table class="table full-width stat-table" style="margin-bottom:1rem;">
+                    <thead>
+                        <tr>
+                            <th style="width:40%">Metric</th>
+                            <th style="width:60%">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Resolved</td>
+                            <td><strong id="resolvedReports">0</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Pending</td>
+                            <td><strong id="pendingReports">0</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Open</td>
+                            <td><strong id="openReports">0</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Severity breakdown table -->
+                <table class="table full-width stat-table">
+                    <thead>
+                        <tr>
+                            <th>Severity</th>
+                            <th style="text-align:center;">Resolved</th>
+                            <th style="text-align:center;">Pending</th>
+                            <th style="text-align:center;">Open</th>
+                            <th style="text-align:center;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Critical</strong></td>
+                            <td style="text-align:center;" id="resolvedCritical">0</td>
+                            <td style="text-align:center;" id="pendingCritical">0</td>
+                            <td style="text-align:center;" id="openCritical">0</td>
+                            <td style="text-align:center;" id="criticalSeverity">0</td>
+                        </tr>
+                        <tr>
+                            <td><strong>High</strong></td>
+                            <td style="text-align:center;" id="resolvedHigh">0</td>
+                            <td style="text-align:center;" id="pendingHigh">0</td>
+                            <td style="text-align:center;" id="openHigh">0</td>
+                            <td style="text-align:center;" id="highSeverity">0</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Medium</strong></td>
+                            <td style="text-align:center;" id="resolvedMedium">0</td>
+                            <td style="text-align:center;" id="pendingMedium">0</td>
+                            <td style="text-align:center;" id="openMedium">0</td>
+                            <td style="text-align:center;" id="mediumSeverity">0</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Low</strong></td>
+                            <td style="text-align:center;" id="resolvedLow">0</td>
+                            <td style="text-align:center;" id="pendingLow">0</td>
+                            <td style="text-align:center;" id="openLow">0</td>
+                            <td style="text-align:center;" id="lowSeverity">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Reports Modal -->
+    <div id="saReportsModal" class="modal assignments-modal" aria-hidden="true">
+        <div class="modal-content">
+            <button class="modal-close" id="closeSaReportsModal">&times;</button>
+            <h3>All Reports (Read-only)</h3>
+            <div style="max-height:60vh; overflow:auto;">
+                <table id="saReportsTable" class="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Reporter</th>
+                            <th>Status</th>
+                            <th>Severity</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Users Modal (opened when clicking a role card) -->
+    <div id="saUsersModal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+            <button class="modal-close" id="closeSaUsersModal">&times;</button>
+            <h3 id="saUsersModalTitle">Users</h3>
+            <div style="max-height:60vh; overflow:auto;">
+                <table id="saUsersModalTable" class="table">
+                    <thead>
+                        <tr><th>Username</th><th>Email</th><th>Role</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Details Modal (uses modal styles) -->
+    <div id="saReportDetailsModal" class="modal" aria-hidden="true">
+        <div class="modal-content modal-small">
+            <button class="modal-close" id="closeSaReportDetailsModal">&times;</button>
+            <h3 id="saReportDetailsTitle">Report Details</h3>
+            <div id="saReportDetailsBody"></div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/superadmin_dashboard.js"></script>
+</body>
+</html>
