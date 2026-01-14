@@ -13,9 +13,62 @@
     <div class="top-bar">
         <div class="top-bar-actions">
                 <div style="display:flex; gap:8px; align-items:center;">
-                <button id="backToAdminBtn" class="btn btn-secondary">Back to Admin</button>
+                <button id="backToAdminBtn" class="btn btn-secondary">Admin page</button>
+                <button id="standardsBtn" class="btn btn-outline"><i class="btn-icon fas fa-book"></i>Standards</button>
                 <button id="logoutBtn" class="btn btn-danger"><i class="btn-icon fas fa-sign-out-alt"></i>Logout</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Standards Modal (Superadmin) -->
+    <div id="standardsModal" class="modal" aria-hidden="true">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>Compliance Standards</h3>
+                <div class="header-actions">
+                    <button id="openAddStandardBtn" class="btn btn-primary">Add New</button>
+                    <button id="closeStandardsModal" class="btn btn-secondary">Close</button>
+                </div>
+            </div>
+            <div style="max-height:60vh; overflow:auto; margin-top:8px;">
+                <table id="standardsTable" class="table">
+                    <thead>
+                        <tr><th>Control ID</th><th>Name</th><th>Description</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add / Edit Standard Modal -->
+    <div id="standardEditModal" class="modal" aria-hidden="true">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h3 id="standardEditTitle">Add Standard</h3>
+                <div class="header-actions">
+                    <button class="modal-close" id="closeStandardEditModal">&times;</button>
+                </div>
+            </div>
+            <form id="standardForm" class="form-vertical">
+                <div class="form-group">
+                    <label for="standardControlId">Control ID</label>
+                    <input id="standardControlId" type="text" required />
+                </div>
+                <div class="form-group">
+                    <label for="standardName">Name</label>
+                    <input id="standardName" type="text" required />
+                </div>
+                <div class="form-group">
+                    <label for="standardDescription">Description</label>
+                    <textarea id="standardDescription" rows="4"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button id="saveStandardBtn" class="btn btn-primary" type="submit">Save</button>
+                    <button id="cancelStandardBtn" class="btn btn-secondary" type="button">Cancel</button>
+                </div>
+            </form>
+            <div id="standardFormMessage" class="form-message"></div>
         </div>
     </div>
 
@@ -224,6 +277,7 @@
     </div>
 
     <script src="js/api.js"></script>
+    <script src="js/standards.js"></script>
     <script src="js/superadmin_dashboard.js"></script>
 </body>
 </html>

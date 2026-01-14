@@ -1286,3 +1286,114 @@ def auditor_feed(user):
         r['_id'] = str(r['_id'])
         items.append(r)
     return jsonify({'items': items}), 200
+
+
+# --- Superadmin management of compliance standards ---
+@admin_bp.get('/compliance/standards')
+@jwt_required()
+@role_required(['superadmin'])
+def list_compliance_standards_admin(user):
+    """List available compliance standards for superadmin management."""
+    try:
+        standards = list(db.compliance_standards.find({}, {'_id': 1, 'control_id': 1, 'name': 1, 'description': 1}).sort('control_id', 1))
+        for s in standards:
+            s['_id'] = str(s.get('_id'))
+        return jsonify({'standards': standards}), 200
+    except Exception as e:
+        print('Error listing compliance standards (admin):', e)
+        return jsonify({'message': 'Failed to list standards', 'error': str(e)}), 500
+
+
+@admin_bp.get('/compliance/standards/<sid>')
+@jwt_required()
+@role_required(['superadmin'])
+def get_compliance_standard_admin(user, sid):
+    """Return a single compliance standard by id."""
+    try:
+        try:
+            oid = ObjectId(sid)
+            doc = db.compliance_standards.find_one({'_id': oid})
+        except Exception:
+            doc = db.compliance_standards.find_one({'_id': sid})
+        if not doc:
+            return jsonify({'message': 'Standard not found'}), 404
+        # normalize
+        doc['_id'] = str(doc.get('_id'))
+        return jsonify({'standard': doc}), 200
+    except Exception as e:
+        print('Error fetching standard (admin):', e)
+        return jsonify({'message': 'Failed to fetch standard', 'error': str(e)}), 500
+
+
+@admin_bp.post('/compliance/standards')
+@jwt_required()
+@role_required(['superadmin'])
+def create_compliance_standard_admin(user):
+    """Create a new compliance standard. Body: { control_id, name, description }"""
+    try:
+        payload = request.get_json(force=True)
+    except Exception:
+        return jsonify({'message': 'Invalid JSON payload'}), 400
+    control_id = (payload.get('control_id') or '').strip()
+    name = (payload.get('name') or '').strip()
+    description = payload.get('description')
+    if not control_id or not name:
+        return jsonify({'message': 'control_id and name are required'}), 422
+    try:
+        doc = {'control_id': control_id, 'name': name, 'description': description, 'created_at': datetime.now()}
+        res = db.compliance_standards.insert_one(doc)
+        return jsonify({'message': 'Standard created', 'id': str(res.inserted_id)}), 201
+    except Exception as e:
+        print('Error creating standard:', e)
+        return jsonify({'message': 'Failed to create standard', 'error': str(e)}), 500
+
+
+@admin_bp.put('/compliance/standards/<sid>')
+@jwt_required()
+@role_required(['superadmin'])
+def update_compliance_standard_admin(user, sid):
+    """Update an existing standard. Body: { control_id?, name?, description? }"""
+    try:
+        payload = request.get_json(force=True)
+    except Exception:
+        return jsonify({'message': 'Invalid JSON payload'}), 400
+    update = {}
+    if 'control_id' in payload:
+        update['control_id'] = (payload.get('control_id') or '').strip()
+    if 'name' in payload:
+        update['name'] = (payload.get('name') or '').strip()
+    if 'description' in payload:
+        update['description'] = payload.get('description')
+    if not update:
+        return jsonify({'message': 'No fields to update'}), 400
+    try:
+        try:
+            oid = ObjectId(sid)
+            res = db.compliance_standards.update_one({'_id': oid}, {'$set': update})
+        except Exception:
+            res = db.compliance_standards.update_one({'_id': sid}, {'$set': update})
+        if res.matched_count == 0:
+            return jsonify({'message': 'Standard not found'}), 404
+        return jsonify({'message': 'Updated'}), 200
+    except Exception as e:
+        print('Error updating standard:', e)
+        return jsonify({'message': 'Failed to update standard', 'error': str(e)}), 500
+
+
+@admin_bp.delete('/compliance/standards/<sid>')
+@jwt_required()
+@role_required(['superadmin'])
+def delete_compliance_standard_admin(user, sid):
+    """Delete a compliance standard by id."""
+    try:
+        try:
+            oid = ObjectId(sid)
+            res = db.compliance_standards.delete_one({'_id': oid})
+        except Exception:
+            res = db.compliance_standards.delete_one({'_id': sid})
+        if res.deleted_count == 0:
+            return jsonify({'message': 'Standard not found'}), 404
+        return jsonify({'message': 'Deleted'}), 200
+    except Exception as e:
+        print('Error deleting standard:', e)
+        return jsonify({'message': 'Failed to delete standard', 'error': str(e)}), 500
