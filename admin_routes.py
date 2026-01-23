@@ -435,6 +435,14 @@ def get_assignment_history(user, report_id):
 
         history_entries_sorted = sorted(history_entries, key=_parse_key)
 
+        try:
+            # Lightweight debug logging to help frontend troubleshooting
+            print(f"get_assignment_history: report_id={report_id} entries={len(history_entries_sorted)}")
+            sample = [f"{h.get('assignee_name') or h.get('assignee_username') or 'Unknown'}@{h.get('assigned_at')}" for h in history_entries_sorted[:10]]
+            print('get_assignment_history sample:', sample)
+        except Exception:
+            pass
+
         return jsonify({'assignments': history_entries_sorted}), 200
 
     except Exception as e:
@@ -448,15 +456,33 @@ def get_assignment_history(user, report_id):
 @role_required(['admin','superadmin'])
 def all_reports(user):
     """Fetches all reports with filtering options for Admin."""
+    # Support multiple reporter filter query params for flexibility
     reporter_username = request.args.get('reporter')
+    reporter_name = request.args.get('reporter_name')
+    reporter_email = request.args.get('reporter_email')
     date_from_str = request.args.get('date_from')
     date_to_str = request.args.get('date_to')
+    severity = request.args.get('severity')
 
     q = {}
-    if reporter_username:
-        reporter_user = db.reporters.find_one({'username': reporter_username})
-        if reporter_user:
-            q['reporter_id'] = ObjectId(reporter_user['_id']) if isinstance(reporter_user['_id'], str) else reporter_user['_id']
+    # Prefer explicit reporter_name or reporter_email filters; fall back to 'reporter' param
+    try:
+        if reporter_email:
+            reporter_user = db.reporters.find_one({'email': reporter_email})
+            if reporter_user:
+                q['reporter_id'] = ObjectId(reporter_user['_id']) if isinstance(reporter_user['_id'], str) else reporter_user['_id']
+        elif reporter_name:
+            # Try matching username first, then full name
+            reporter_user = db.reporters.find_one({'username': reporter_name}) or db.reporters.find_one({'name': reporter_name}) or db.reporters.find_one({'full_name': reporter_name})
+            if reporter_user:
+                q['reporter_id'] = ObjectId(reporter_user['_id']) if isinstance(reporter_user['_id'], str) else reporter_user['_id']
+        elif reporter_username:
+            reporter_user = db.reporters.find_one({'username': reporter_username})
+            if reporter_user:
+                q['reporter_id'] = ObjectId(reporter_user['_id']) if isinstance(reporter_user['_id'], str) else reporter_user['_id']
+    except Exception:
+        # If reporter lookup fails, ignore and continue without reporter filter
+        pass
 
     # --- Robust Date Parsing (Prevents 422 on bad date queries) ---
     try:
@@ -472,6 +498,11 @@ def all_reports(user):
         # This catches the crash and returns a proper error message (400 instead of 422)
         return jsonify({'message': 'Invalid date format provided for filtering. Dates must be in ISO 8601 format (e.g., YYYY-MM-DD).'}), 400
     # --------------------------------------------------------------------
+
+    # Severity filter (optional)
+    if severity:
+        # Expect severity values like 'low', 'medium', 'high', 'critical'
+        q['severity'] = severity
 
     pipeline = [
         {'$match': q},

@@ -1,0 +1,2022 @@
+/* Dashboard layout and common styles */
+.button-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.button-group .btn {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.actions-taken-modal {
+    padding: 1rem;
+}
+
+.actions-taken-modal .actions-list {
+    margin-top: 1rem;
+}
+
+.action-item {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.action-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.action-date {
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+.action-steps {
+    white-space: pre-wrap;
+    margin-top: 0.5rem;
+}
+
+body {
+    background: #f0f2f5;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 2rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dashboard-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto 1rem; 
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* Stats Cards */
+/* Stats Grid Layout */
+.stats-grid {
+    display: grid;
+    /* make the left "Total Reports" column wider so the card fills the column neatly */
+    grid-template-columns: 220px 1fr;
+    gap: 0.75rem;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* Role cards and card buttons (top-level rules to ensure consistent styling) */
+.stats-cards {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: stretch;
+    margin-top: 0.6rem;
+}
+.card-stats {
+    flex: 1 1 180px;
+    min-width: 160px;
+}
+.btn-card {
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary-dark, #34495e) 0%, var(--primary-color, #3b7bbf) 100%);
+    color: white;
+    border: none;
+    padding: 0.9rem 0.6rem;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: var(--shadow-sm, 0 1px 4px rgba(0,0,0,0.06));
+}
+.btn-card:hover { transform: translateY(-2px); }
+.btn-card .stat-number { display: block; font-size: 1.6rem; margin-top: 0.4rem; }
+
+/* Page header tweaks */
+.card.dashboard-container { width: 90%; max-width: 1200px; margin: 1.5rem auto; padding: 1rem 1.25rem; }
+.card h1 { margin: 0 0 0.5rem 0; font-size: 1.25rem; }
+
+
+/* Total column spans three rows */
+.total-section {
+    grid-column: 1 / 2;
+    grid-row: 1 / span 3;
+    display: flex;
+    align-items: stretch;
+    /* let the total card start at the left and fill the available column */
+    justify-content: flex-start;
+    align-self: stretch; /* make sure the grid cell itself stretches */
+}
+
+.right-section {
+    grid-column: 2 / 3;
+    grid-row: 1 / span 3;
+}
+
+.right-columns {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* Each row contains a status card and severity cards */
+.right-columns .row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+/* Style for status cards */
+.right-columns .row .stat-card:first-child {
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+}
+
+/* Container for severity cards */
+.right-columns .severity-row {
+    display: flex;
+    gap: 0.75rem;
+}
+
+/* Individual severity cards */
+.right-columns .severity-row .stat-card {
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+}
+
+.status-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+}
+
+.severity-row {
+    display: flex;
+
+    /* Role cards (superadmin users area) */
+    .stats-cards {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+        align-items: stretch;
+    }
+    .card-stats {
+        flex: 1 1 160px;
+        min-width: 140px;
+    }
+    .btn-card {
+        width: 100%;
+        background: linear-gradient(135deg, #34495e 0%, #3b7bbf 100%);
+        color: white;
+        border: none;
+        padding: 0.9rem 0.6rem;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    .btn-card .stat-number {
+        display: block;
+        font-size: 1.6rem;
+        margin-top: 0.4rem;
+    }
+
+    /* Modal-specific small tweaks for users modal */
+    .modal .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .modal .table th, .modal .table td {
+        padding: 8px 10px;
+        border-bottom: 1px solid #eef2f7;
+    }
+
+    /* Reports section slight restyle: keep coloring but make cards simpler and more compact */
+    .stat-card { /* reduce shadow and padding for superadmin */
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .total { background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%); }
+    .resolved { background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); }
+    .pending { background: linear-gradient(135deg, #e67e22 0%, #f39c12 100%); }
+    gap: 0.35rem;
+    margin-top: 0.3rem;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+/* Stats Cards */
+.stat-card {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-card:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.stat-card:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding: 0.35rem;
+    text-align: center;
+    gap: 0.2rem;
+}
+
+/* Make total card content span full height */
+.total .stat-content {
+    gap: 0.35rem;
+    padding: 0.75rem;
+}
+
+/* Total Reports Card */
+.total {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+    color: white;
+    border: none;
+    grid-row: span 3;
+    min-height: 100%;
+}
+
+/* Allow the total card to fill its grid column while keeping a small padding like other cards */
+.total {
+    width: calc(100% - 12px);
+    margin: 6px;
+}
+
+.total .stat-content {
+    padding: 0.35rem;
+    gap: 0.15rem;
+}
+
+.total .stat-icon {
+    font-size: 1.2rem;
+    margin-bottom: 0.15rem;
+}
+
+.total .stat-info h3 {
+    font-size: 0.8rem;
+    margin-bottom: 0.15rem;
+    font-weight: 500;
+}
+
+.total .stat-number {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+/* Status Cards */
+.resolved {
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    color: white;
+}
+
+.pending {
+    background: linear-gradient(135deg, #994e0b 0%, #9e6201 100%);
+    color: white;
+}
+
+/* Status Cards Icons and Text */
+.stat-card .stat-icon {
+    font-size: 1.1rem; /* smaller icons */
+    margin-bottom: 0.4rem;
+}
+
+.stat-card .stat-info h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.stat-card .stat-number {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+/* Second Row (Severity Cards) */
+.row-2 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* Severity Cards */
+.severity-critical,
+.severity-high,
+.severity-medium,
+.severity-low {
+    background: white !important;
+    color: #2c3e50 !important;
+}
+
+.severity-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    height: 100%;
+    text-align: center;
+}
+
+.severity-critical::before,
+.severity-high::before,
+.severity-medium::before,
+.severity-low::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    border-radius: 4px 0 0 4px;
+}
+
+.severity-critical::before { background-color: #e74c3c; }
+.severity-high::before { background-color: #e67e22; }
+.severity-medium::before { background-color: #f1c40f; }
+.severity-low::before { background-color: #2ecc71; }
+
+.severity-icon {
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+    color: #2c3e50;
+}
+
+.severity-info h4 {
+    color: #2c3e50;
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.severity-number {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #2c3e50;
+    display: block;
+}
+
+/* Overrides to ensure filled cards show white labels and compact sizes */
+.total .stat-info h3,
+.resolved .stat-info h3,
+.pending .stat-info h3 {
+    color: #ffffff !important;
+}
+
+/* Auditor dashboard: make severity trend chart stretch across page and be taller */
+.auditor-stats-card {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Keep chart inside the centered dashboard container (no full-bleed) */
+.chart-container {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 1rem 0;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 480px !important; /* fixed comfortable height */
+    max-width: 100%;
+    display: block;
+}
+
+@media (max-width: 800px) {
+    .chart-container { padding: 0.5rem 0; }
+    .chart-container canvas { height: 320px !important; }
+}
+
+/* enforce compact sizes for stat cards (override earlier duplicates) */
+.stat-card {
+    min-height: 56px !important;
+    padding: 0.5rem !important;
+}
+
+.stat-card.small {
+    min-height: 48px !important;
+    padding: 0.35rem !important;
+}
+
+.stat-card .stat-number {
+    font-size: 1rem !important;
+}
+
+.total {
+    min-height: 80px !important;
+}
+
+/* Make sure severity headings are readable on small cards */
+.severity-info h4 {
+    font-size: 0.8rem !important;
+    margin: 0 !important;
+}
+
+/* small modifier for per-column severity cards */
+.stat-card.small {
+    min-height: 56px;
+    padding: 0.4rem;
+}
+
+/* Report Generator Section */
+.report-generator-section {
+    border-top: 1px solid #eef2f7;
+    padding: 2.5rem 2rem 2rem;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+/* Auditor page specific layout adjustments: make stats compact and give the compliance area more space */
+.auditor-stats-card,
+.auditor-compliance-card {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+}
+
+/* Stats card: let content size naturally (no forced scrolling) */
+.auditor-stats-card .stats-grid {
+    /* keep the grid compact but allow it to expand vertically */
+    align-items: start;
+}
+
+/* Compliance card: give more visual room */
+.auditor-compliance-card .report-generator-section {
+    min-height: 260px;
+}
+
+/* Make report generator controls more prominent */
+.report-generator-section .date-range-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.report-generator-section .date-inputs {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.report-generator-section .date-inputs .date-input.small {
+    padding: 0.45rem 0.5rem;
+}
+
+/* Ensure openComplianceBtn is visible and aligned */
+#openComplianceBtn {
+    margin: 0;
+}
+
+.report-info-text {
+    color: #666;
+    font-size: 1rem;
+    margin: 0.5rem 0 1.5rem;
+}
+
+.date-range-container {
+    margin-top: 1.5rem;
+}
+
+.date-inputs {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-end;
+}
+
+.form-group {
+    flex: 1;
+}
+
+.date-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e1e8ef;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    min-width: 300px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #666;
+    padding: 0.5rem;
+    line-height: 1;
+    transition: color 0.2s;
+    z-index: 1;
+}
+
+.close-modal:hover {
+    color: #333;
+}
+
+/* Final compact overrides to reduce vertical footprint of report stats cards */
+.stats-grid .stat-card,
+.right-columns .stat-card,
+.total .stat-card {
+    min-height: 40px !important;
+    padding: 0.35rem !important;
+}
+
+.stat-card .stat-number { font-size: 0.9rem !important; }
+.stat-card .stat-info h3 { font-size: 0.9rem !important; }
+.total { min-height: 64px !important; }
+.right-columns .stat-card.resolved,
+.right-columns .stat-card.pending { min-height: 34px !important; padding: 0.3rem !important; }
+
+/* Ensure severity badges remain readable at smaller sizes */
+.severity-content { padding: 0.45rem !important; }
+
+.welcome-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1.25rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    min-height: 40px;
+}
+
+/* Audit history modal contents */
+.audit-history {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.audit-entry {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: flex-start;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    padding: 0.75rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+/* Feedback consolidated modal styling */
+.feedback-group {
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+.feedback-group h4 {
+    margin: 0 0 8px 0;
+    font-size: 1.05rem;
+}
+.feedback-card {
+    border-left: 3px solid #e1e8ef;
+    padding: 8px 10px;
+    margin: 8px 0;
+    background: #fafafa;
+    border-radius: 6px;
+}
+.feedback-card pre {
+    margin: 6px 0 0;
+    white-space: pre-wrap;
+}
+
+.audit-date {
+    min-width: 140px;
+    color: #555;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.audit-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1 1 50%;
+}
+
+.audit-stats p { margin: 0; font-size: 0.95rem; color: #222; }
+
+.severity-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1 1 50%;
+}
+
+.severity-stats h4 { margin: 0 0 0.25rem 0; font-size: 0.95rem; }
+.severity-stats ul { margin: 0; padding-left: 1rem; }
+.severity-stats li { margin: 0.15rem 0; font-size: 0.9rem; }
+
+@media (max-width: 700px) {
+    .audit-entry { flex-direction: column; }
+    .audit-date { min-width: auto; }
+}
+
+.welcome-message {
+    font-size: 1rem;
+    color: #2c3e50;
+    font-weight: 500;
+    margin-right: auto;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.top-bar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: white;
+    padding: 0.6rem 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: nowrap;
+}
+
+.top-bar .welcome-message {
+    font-size: 1rem;
+    color: #2c3e50;
+    font-weight: 500;
+    margin: 0;
+}
+
+.top-bar-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-left: auto;
+    position: static;
+}
+
+.dashboard-container {
+    margin-top: 6rem;
+}
+
+/* Top-bar action buttons sizing */
+.top-bar-actions .btn {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.95rem;
+}
+
+/* Auditor-specific top-bar*/
+.auditor-page .top-bar {
+    padding: 0.35rem 0.9rem;
+}
+
+.auditor-page .top-bar .welcome-message {
+    font-size: 0.95rem;
+}
+
+.auditor-page .top-bar-actions .btn {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.9rem;
+}
+
+/* Admin page buttons */
+.admin-page .top-bar-actions .btn {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.95rem;
+}
+
+/* Icon thumbnail spacing inside buttons */
+.btn .btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    margin-right: 0.5rem;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 1600px;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card h1, .card h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+    text-align: center;
+}
+
+.card h1::after, .card h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    border-radius: 2px;
+}
+
+/* Form controls */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: #4a5568;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.registration-form .form-group input,
+.registration-form .form-group select {
+    width: 100% !important;
+    padding: 0.75rem !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    font-size: 0.95rem !important;
+    transition: all 0.2s ease !important;
+    background: white !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.form-group input:focus, .form-group select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    outline: none;
+    background: white;
+}
+
+/* Buttons */
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    color: white;
+}
+
+.btn-secondary {
+    background: #f8f9fa;
+    color: #2c3e50;
+    border: 2px solid #e9ecef;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    color: white;
+}
+
+.btn-logout {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: white;
+    color: #e74c3c;
+    border: 2px solid #e74c3c;
+    z-index: 1000;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-logout:hover {
+    background: #e74c3c;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(231, 76, 60, 0.2);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eef2f7;
+}
+
+th {
+    background: #f8f9fa;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+tr:hover {
+    background: #f8f9fa;
+}
+
+/* Filter section */
+.filter-section {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    border: 1px solid #eef2f7;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.filter-section h3 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+    font-size: 1.1rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-section h3::before {
+    content: '🔍';
+    font-size: 1rem;
+}
+
+.filter-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: white;
+    padding: 1.25rem;
+    border-radius: 10px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.filter-row {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+.filter-date-range {
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+}
+
+.filter-reporter {
+    flex: 1;
+}
+
+.filter-actions {
+    display: flex;
+    justify-content: flex-end;
+    min-width: 120px;
+}
+
+.filter-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .filter-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Modal styles update */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 1rem;
+}
+
+.modal-overlay.show {
+    display: flex !important;
+    /* Ensure overlay becomes visible (some styles set opacity:0 elsewhere) */
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Stats grid used on superadmin page */
+.card-stats { background: #fff; border: 1px solid #e9eef3; padding: 12px; border-radius:8px; text-align:center; }
+.btn-card { width:100%; height:72px; display:flex; flex-direction:column; justify-content:center; align-items:center; font-size:14px; }
+.stat-number { font-size:20px; font-weight:700; display:block; margin-top:6px; }
+.form-inline { display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap; }
+.form-group label { display:block; font-size:0.9rem; margin-bottom:4px; }
+.form-actions { display:flex; align-items:center; }
+.filter-row { display:flex; gap:8px; align-items:center; margin-top:8px; }
+.table-container { border:1px solid #eee; padding:8px; max-height:50vh; overflow:auto; }
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 800px;
+    width: 95%;
+    margin: 0 auto;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #eef2f7;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
+}
+
+.modal-content h2 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin: 0;
+    flex: 1;
+    padding-right: 1rem;
+}
+/* Responsive behavior */
+@media (max-width: 800px) {
+    .auditor-stats-card { flex-direction: column; }
+    .auditor-left, .auditor-right { min-width: 100%; }
+    .total-card { min-height: 56px; }
+}
+
+.modal-close {
+    padding: 0.6rem;
+    font-size: 1.1rem;
+    color: #64748b;
+    background: #f1f5f9;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.modal-close:hover {
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.modal-body {
+    margin-top: 1.5rem;
+}
+
+/* Table responsive wrapper */
+.table-responsive {
+    overflow-x: auto;
+    margin: 0 -1rem;
+    padding: 0 1rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Enhanced textarea styles */
+textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #eef2f7;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+    min-height: 120px;
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+textarea:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    outline: none;
+    background: white;
+}
+
+/* Responsive design */
+/* Stats layout */
+.stats-layout {
+    width: 100%;
+    margin: 2rem 0;
+}
+
+.reports-summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.stats-item {
+    flex: 1;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    min-width: 200px;
+    max-width: 400px;
+}
+
+.severity-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    width: 100%;
+}
+
+/* Tools Grid */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    width: 80%;
+    max-width: 1200px;
+    margin: 2rem auto;
+}
+
+.tool-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.tool-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 1400px) {
+    .stats-layout {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .top-bar {
+        height: auto;
+        min-height: 56px;
+        padding: 0.5rem 1rem;
+    }
+
+    .dashboard-container {
+        width: 100%;
+        padding: 0.5rem;
+        margin-top: 4rem;
+    }
+
+    .stats-layout, .tools-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .top-bar .welcome-message {
+        font-size: 0.9rem;
+        width: auto;
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        left: 1rem;
+    }
+
+    .top-bar-actions {
+        right: 1rem;
+        gap: 0.5rem;
+    }
+
+    .top-bar .btn {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+
+    .status-badge,
+    .severity-badge {
+        padding: 0.25rem 0.5rem;
+        min-width: 70px;
+        font-size: 0.75rem;
+    }
+
+    .filter-row {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .filter-date-range {
+        flex-direction: column;
+    }
+
+    .filter-actions {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .dashboard-container {
+        margin-top: 120px;
+    }
+
+    .welcome-section {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .modal-content {
+        width: 100%;
+        margin: 0;
+        border-radius: 12px 12px 0 0;
+        min-height: 100vh;
+        max-height: none;
+    }
+    
+    .modal-overlay {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    .table-responsive {
+        margin: 0 -1rem;
+        padding: 0 1rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-container {
+        margin-top: 4rem;
+        padding: 0 1rem;
+    }
+
+    .card {
+        padding: 1.25rem;
+    }
+
+    textarea {
+        min-height: 100px;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+
+    th, td {
+        padding: 0.75rem;
+    }
+}
+
+/* Compact date range row for report generator */
+.report-generator-section .date-range-container {
+    margin-top: 0.4rem;
+}
+.report-generator-section .date-inputs {
+    display: flex !important;
+    gap: 0.12rem !important;
+    align-items: flex-end !important; 
+    flex-wrap: nowrap !important;
+}
+.report-generator-section .date-inputs .form-group { margin: 0; flex: 0 0 auto !important; }
+.report-generator-section .date-inputs .form-group:nth-child(2) { margin-right: 1rem !important; }
+.report-generator-section .date-inputs button.date-btn {
+    flex: 0 0 auto !important;
+    margin-left: 1.2rem !important; 
+    margin-top: 0 !important; 
+    height: 42px !important;
+    padding: 0 14px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+    font-size: 1rem !important;
+}
+.report-generator-section .date-inputs .form-group label { display:block; margin-bottom:6px; font-size:0.95rem; }
+.report-generator-section .date-inputs .form-group .date-input.small {
+    width: 180px !important;
+    height: 40px !important;
+    padding: 0.4rem 0.5rem !important;
+    font-size: 1rem !important;
+}
+.report-generator-section .date-inputs .form-group { margin: 0; }
+.date-input.small {
+    width: 150px;
+    height: 36px;
+    padding: 0.25rem 0.4rem;
+    font-size: 0.95rem;
+}
+.date-btn {
+    height: 36px;
+    padding: 0 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+    .report-generator-section .date-inputs { flex-direction: column; align-items: stretch; }
+    .date-input.small { width: 100%; }
+    .date-btn { width: 100%; justify-content: center; }
+}
+
+/* Status and Severity badges */
+
+.status-badge,
+.severity-badge {
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.813rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+    text-transform: capitalize;
+}
+
+/* Status badges */
+.status-pending {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.status-resolved {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status-assigned {
+    background: #cce5ff;
+    color: #004085;
+    border: 1px solid #b8daff;
+}
+
+/* Severity badges */
+.severity-low {
+    background: #e2e8f0;
+    color: #2d3748;
+    border: 1px solid #cbd5e0;
+}
+
+.severity-medium {
+    background: #fefcbf;
+    color: #744210;
+    border: 1px solid #faf089;
+}
+
+.severity-high {
+    background: #feebc8;
+    color: #c05621;
+    border: 1px solid #fbd38d;
+}
+
+.severity-critical {
+    background: #fed7d7;
+    color: #c53030;
+    border: 1px solid #feb2b2;
+}
+
+
+
+/* Report section */
+.reports-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.reports-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.report-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 12px;
+    padding: 1.75rem;
+    border: 1px solid #eef2f7;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.report-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+    border-color: #e2e8f0;
+}
+
+.report-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #4299e1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.report-card:hover::before {
+    opacity: 1;
+}
+
+.section-description {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.report-form {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eef2f7;
+}
+
+.registration-form {
+    width: 100%;
+    max-width: 400px !important;
+    margin: 4rem auto !important;
+    padding: 2rem !important;
+    background: white !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+    position: relative !important;
+    transform: translateY(-10px);
+    animation: slideUp 0.3s ease forwards;
+}
+
+@keyframes slideUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.registration-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #3498db, #2c3e50);
+    border-radius: 12px 12px 0 0;
+}
+
+.registration-form .form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.registration-form .form-group {
+    margin-bottom: 0.5rem;
+}
+
+.registration-form label {
+    font-size: 0.875rem;
+    color: #4a5568;
+}
+
+.registration-form input {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+}
+
+.registration-form .form-actions {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid #edf2f7;
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+/* Auditor-specific styles */
+.audit-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.audit-actions button {
+    min-width: 150px;
+}
+
+.stat-warning {
+    color: #f39c12;
+}
+.dashboard-container {
+    max-width: 1800px;
+    margin: 4.5rem auto 2rem;
+    padding: 0 2rem;
+}
+
+.dashboard-row {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.tools-section {
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+    width: 100%;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.date-range {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    flex: 1;
+}
+
+.date-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.report-generator {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+}
+
+.report-form {
+    margin-top: 1.5rem;
+}
+
+.tool-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    width: 100%;
+    flex: 1;
+}
+
+.action-btn {
+    width: 100%;
+    padding: 1.25rem;
+    border: 1px solid #e0e0e0;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.report-generator {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+.report-generator h3 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+.action-btn {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.report-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    padding: 0.75rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+}        .action-btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+#recordAuditBtn .btn-icon {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+#viewAuditsBtn .btn-icon {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+#generateReportBtn .btn-icon {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn:hover .btn-icon {
+    transform: scale(1.1);
+}
+
+.action-btn span {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.action-btn span {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+#recordAuditBtn .btn-icon {
+    background: #2ecc71;
+}
+
+#viewAuditsBtn .btn-icon {
+    background: #3498db;
+}
+
+#generateReportBtn .btn-icon {
+    background: #9b59b6;
+}
+
+.action-btn span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.stat-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
+
+.badge {
+    padding: 0.35rem 0.75rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+}
+
+.badge-info { background: #3498db; color: white; }
+.badge-success { background: #2ecc71; color: white; }
+.badge-warning { background: #f1c40f; color: #2c3e50; }
+.badge-low { background: #95a5a6; color: white; }
+.badge-medium { background: #f39c12; color: white; }
+.badge-high { background: #e67e22; color: white; }
+.badge-critical { background: #e74c3c; color: white; }
+
+.severity-badges {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.badge-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.badge-label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+}
+
+.button-group .btn {
+    min-width: 120px;
+    padding: 0.75rem 1.5rem;
+}
+
+.btn-success { background-color: #2ecc71; color: white; }
+.btn-info { background-color: #3498db; color: white; }
+.btn-primary { background-color: #9b59b6; color: white; }
+
+.alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    z-index: 1000;
+    animation: slideIn 0.3s ease-out;
+}
+
+.alert-success {
+    background: #2ecc71;
+    color: white;
+}
+
+.alert-error {
+    background: #e74c3c;
+    color: white;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 800px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+/* --- Superadmin page: separate the registration, users and reports sections
+   into three distinct containers so each is its own flexbox/panel. --- */
+.card-inner {
+    display: block !important;
+}
+
+.card-inner > .section {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    background: var(--card-background) !important;
+    border: 1px solid var(--border-color) !important;
+    padding: calc(var(--spacing-unit) * 2) !important;
+    border-radius: var(--border-radius) !important;
+    box-shadow: var(--shadow-md) !important;
+    margin-bottom: calc(var(--spacing-unit) * 2) !important;
+}
+
+/* Ensure headings and inner content follow admin styling */
+.card-inner > .section h2 {
+    margin: 0 0 6px 0 !important;
+    font-size: 1.05rem !important;
+}
+
+/* Tighten headings inside the section boxes */
+.card-inner > .section h2 {
+    margin: 0 0 6px 0 !important;
+    font-size: 1.05rem !important;
+}
+
+/* Ensure inner tables and forms stretch to the container width */
+.card-inner .table, .card-inner form {
+    width: 100% !important;
+}
+
+/* --- Superadmin: make each section a full-bleed band across the viewport --- */
+/* Sections will visually span the page while their inner content remains constrained */
+.admin-page .dashboard-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    /* keep space below the fixed top-bar so section headers are visible */
+    padding-top: 5.5rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.admin-page .card.dashboard-container {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+}
+.admin-page .card-inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem; /* keep some side padding for inner centered content */
+}
+
+/* Make the visible section panels comfortably inset from the viewport edges for admin pages */
+.admin-page .card-inner > .section {
+    /* limit the section width slightly less than the viewport so edges don't touch */
+    max-width: calc(100% - 48px) !important;
+    margin: 0 auto !important;
+    border-radius: var(--border-radius) !important;
+    padding: 1.25rem !important;
+    box-shadow: var(--shadow-md) !important;
+}
+
+/* Improve visual hierarchy for superadmin sections */
+.admin-page .card-inner > .section h2 {
+    font-size: 1.1rem !important;
+    letter-spacing: 0.2px;
+}
+.admin-page .card-inner > .section .section-description {
+    color: var(--muted-text, #6c757d);
+    margin-top: 6px;
+}
+
+/* Superadmin section panels behaviour*/
+.admin-page .card-inner > .section {
+    background: var(--card-background, #ffffff) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05) !important;
+    transition: transform 0.18s ease, box-shadow 0.18s ease !important;
+}
+.admin-page .card-inner > .section:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 12px 26px rgba(0,0,0,0.10) !important;
+}
+
+/* All Reports button prominence */
+.admin-page #reportsCardBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: linear-gradient(90deg, rgba(59,123,191,0.08), rgba(59,123,191,0.03));
+}
+.admin-page #reportsCardBtn .stat-number {
+    font-weight: 700;
+}
+
+/* Slightly tighten table spacing for admin panels */
+.admin-page .stat-table th, .admin-page .stat-table td {
+    padding: 10px 12px;
+}

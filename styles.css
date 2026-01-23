@@ -1,0 +1,610 @@
+/* Compliance badge styles */
+.compliance-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    margin-left: 6px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.badge-compliant {
+    background: #e6ffe6;
+    color: #1a7f37;
+    border: 1px solid #1a7f37;
+}
+.badge-noncompliant {
+    background: #ffe6e6;
+    color: #b91c1c;
+    border: 1px solid #b91c1c;
+}
+.badge-unchecked {
+    background: #f3f4f6;
+    color: #6b7280;
+    border: 1px solid #d1d5db;
+}
+/* --- Modern UI Styles for VRCMS --- */
+
+/* 1. Root Variables & Base Styles */
+:root {
+    --primary-color: #4f46e5; /* Indigo */
+    --primary-dark: #4338ca;
+    --primary-light: #6366f1;
+    --secondary-color: #64748b; /* Slate Gray */
+    --secondary-dark: #475569;
+    --background-color: #f1f5f9; /* Cool Gray */
+    --card-background: #ffffff;
+    --text-dark: #1e293b; /* Dark Slate */
+    --text-light: #64748b;
+    --border-color: #e2e8f0;
+    --success-color: #16a34a; /* Green */
+    --warning-color: #f59e0b; /* Amber */
+    --danger-color: #dc2626; /* Red */
+    --info-color: #0ea5e9; /* Sky Blue */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --border-radius: 0.375rem; /* 6px */
+    --spacing-unit: 1rem; /* 16px */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-dark);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: calc(var(--spacing-unit) * 1.5); /* 24px */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: var(--spacing-unit);
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+    text-align: left;
+}
+
+h2 {
+    font-size: 1.8rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: calc(var(--spacing-unit) * 0.5);
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+}
+
+/* 2. Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--card-background);
+    color: var(--text-dark);
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 2); /* 16px 32px */
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-logo {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-unit);
+}
+
+.welcome-message {
+    font-weight: 500;
+    color: var(--text-light);
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* 3. Button Styling */
+.btn {
+    padding: 0.65rem 1.25rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--card-background);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-color);
+    color: var(--card-background);
+}
+
+.btn-logout {
+    background-color: var(--danger-color);
+    color: var(--card-background);
+}
+
+.btn-logout:hover {
+    background-color: #b91c1c; /* Darker red */
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* 4. Card Styling for Sections */
+.card {
+    background-color: var(--card-background);
+    padding: calc(var(--spacing-unit) * 2); /* 32px */
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.card:last-child {
+    margin-bottom: 0;
+}
+
+/* 5. Form Styling */
+.form-group {
+    margin-bottom: calc(var(--spacing-unit) * 1.5); /* 24px */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem; /* 8px */
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-dark);
+    background-color: var(--card-background);
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    background-color: var(--card-background);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* 6. Table Styling */
+#reportsTable, #allReportsTable, #assignedReportsTable, #assignmentsTable {
+    width: 100%;
+    border-collapse: separate; /* For rounded corners on cells */
+    border-spacing: 0;
+    margin-top: var(--spacing-unit);
+    border-radius: var(--border-radius);
+    overflow: hidden; /* Ensures rounded corners are visible */
+    box-shadow: var(--shadow-sm);
+}
+
+#reportsTable thead, #allReportsTable thead, #assignedReportsTable thead, #assignmentsTable thead {
+    background-color: #f8fafc; /* Lighter gray for header */
+    color: var(--text-light);
+}
+
+#reportsTable th, #reportsTable td,
+#allReportsTable th, #allReportsTable td,
+#assignedReportsTable th, #assignedReportsTable td,
+#assignmentsTable th, #assignmentsTable td {
+    padding: var(--spacing-unit); /* 16px */
+    text-align: left;    
+    border-bottom: 1px solid var(--border-color);
+}
+
+#reportsTable th:first-child, #allReportsTable th:first-child, #assignedReportsTable th:first-child, #assignmentsTable th:first-child {
+    border-top-left-radius: var(--border-radius);
+}
+
+#reportsTable th:last-child, #allReportsTable th:last-child, #assignedReportsTable th:last-child, #assignmentsTable th:last-child {
+    border-top-right-radius: var(--border-radius);
+}
+
+#reportsTable th, #allReportsTable th, #assignedReportsTable th, #assignmentsTable th {
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+#reportsTable tbody tr:hover, #allReportsTable tbody tr:hover, #assignedReportsTable tbody tr:hover, #assignmentsTable tbody tr:hover {
+    background-color: #f8fafc; /* Lighter hover */
+}
+
+/* 7. Status Badges */
+.status-badge {
+    padding: 0.25rem 0.6rem;
+    border-radius: 9999px; /* pill shape */
+    color: var(--card-background);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+    min-width: 80px; /* Ensure consistent width */
+    text-align: center;
+}
+
+/* Specific status colors */
+.status-badge.pending { background-color: var(--warning-color); color: var(--text-dark); }
+.status-badge.open { background-color: var(--info-color); color: var(--card-background); }
+.status-badge.in-progress { background-color: var(--primary-light); color: var(--card-background); }
+.status-badge.resolved { background-color: var(--success-color); color: var(--card-background); }
+.status-badge.closed { background-color: var(--secondary-color); color: var(--card-background); }
+.status-badge.critical { background-color: var(--danger-color); color: var(--card-background); }
+.status-badge.high { background-color: #f97316; color: var(--card-background); } /* Orange */
+.status-badge.medium { background-color: #f59e0b; color: var(--text-dark); } /* Amber */
+.status-badge.low { background-color: #10b981; color: var(--card-background); } /* Emerald */
+
+/* Link-style buttons used inside tables for light actions */
+.btn-link {
+    background: transparent;
+    color: var(--primary-color);
+    border: none;
+    padding: 0.15rem 0.35rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    display: inline-block;
+}
+
+/* Make sure history button is visible in table cells */
+.history-btn {
+    color: var(--primary-color);
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin-top: 6px;
+}
+
+/* Make history button more visible inside table cells */
+.history-btn {
+    background-color: #ffe58a; /* light yellow */
+    color: #663c00;
+    border: 1px solid #ffd666;
+    padding: 4px 8px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 6px;
+}
+
+/* Filter Section */
+#filterSection {
+    background-color: #f8fafc;
+    padding: var(--spacing-unit);
+    border-radius: var(--border-radius);
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-unit);
+    align-items: end;
+}
+
+#filterSection h3 {
+    grid-column: 1 / -1; /* Span full width */
+    margin-bottom: 0;
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+/* 8. Alert Messages */
+.alert {
+    padding: var(--spacing-unit);
+    margin-bottom: var(--spacing-unit);
+    border: 1px solid transparent;
+    border-radius: var(--border-radius);
+    font-size: 0.95rem;
+    font-weight: 500;
+    max-width: 1200px; margin: 0 auto;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+/* Error message styling */
+#error-message {
+    color: var(--danger-color);
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    margin-bottom: 20px;
+    display: none; /* Hidden by default */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+#error-message.show {
+    display: block;
+    opacity: 1;
+}
+/* Success message styling (used by dashboards) */
+#success-message {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 12px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    margin-bottom: 16px;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.35s ease-in-out;
+}
+#success-message.show {
+    display: block;
+    opacity: 1;
+}
+/* 9. Responsive Design */
+@media (max-width: 992px) {
+    .container {
+        padding: var(--spacing-unit);
+    }
+    .navbar {        
+        padding: var(--spacing-unit) calc(var(--spacing-unit) * 1.5);
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    .card {
+        padding: calc(var(--spacing-unit) * 1.5);
+    }
+    .btn {
+        padding: 0.6rem 1.2rem;
+    }
+    h2 {
+        font-size: 1.3rem;
+    }
+    /* Make tables stack on smaller screens */
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    tr {
+        border: 1px solid var(--border-color);
+        margin-bottom: var(--spacing-unit);
+        border-radius: 0;
+        overflow: hidden;
+    }
+    td {
+        border: none;
+        border-bottom: 1px solid var(--border-color);
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+    }
+    td:last-child {
+        border-bottom: none;
+    }
+    td:before {
+        position: absolute;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        content: attr(data-label); /* Use data-label for column names */
+        font-weight: 600;
+        text-align: left;
+        color: var(--text-dark);
+    }
+    .status-badge {
+        min-width: unset; /* Allow badges to shrink */
+    }
+}
+
+@media (max-width: 480px) {
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+    .card {
+        padding: var(--spacing-unit);
+    }
+    input[type="text"], select, textarea {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* 10. Auth Layout & Modal */
+
+/* Used for login, register, verify pages to center the form card */
+.auth-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: var(--spacing-unit);
+}
+
+.auth-layout .card {
+    width: 100%;
+    max-width: 480px;
+    margin-top: -5vh; /* Pulls the card up slightly from true center */
+}
+
+/* Modal / Floating Page */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30, 41, 59, 0.6); /* Dark Slate with opacity */
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: var(--spacing-unit);
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Auth page specific styles */
+.auth-card-header {
+    text-align: center;
+    margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.auth-card-header h1 {
+    margin-bottom: 0.5rem;
+}
+
+.auth-card-header p {
+    color: var(--text-light);
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: calc(var(--spacing-unit) * 1.5);
+    color: var(--text-light);
+}
+
+.auth-footer a {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Processing overlay used across internal admin/auditor pages */
+.processing-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.45);
+    z-index: 12000;
+}
+.processing-overlay.active {
+    display: flex;
+}
+.processing-box {
+    background: #fff;
+    padding: 18px 22px;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    min-width: 260px;
+}
+.processing-box .spinner {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 3px solid rgba(0,0,0,0.12);
+    border-top-color: var(--primary-color);
+    animation: spin 1s linear infinite;
+}
+.processing-text {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
