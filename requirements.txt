@@ -1,0 +1,9 @@
+Flask==3.0.3
+PyMongo==4.7.2              # For connecting to MongoDB
+python-dotenv==1.0.1        # For managing environment variables (secrets)
+Flask-Bcrypt==1.0.1         # For secure password hashing
+python-jose==3.3.0          # For handling JWT (JSON Web Tokens) for authentication
+Jinja2==3.1.4               # Included with Flask, but good to list
+requests==2.32.3            # For general HTTP requests (if needed)
+reportlab==4.0.0            # For PDF generation
+APScheduler==3.10.1         # Background scheduler for email ingest
